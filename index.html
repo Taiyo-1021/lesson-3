@@ -128,9 +128,11 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#0d1b2a;overflow:hidden;
 .q-opt{border-radius:8px;padding:7px 16px;font-size:clamp(12px,1.5vw,16px);font-weight:700;border:2px solid #ddd;background:#f7f7f7;color:#333;cursor:default}
 .think-banner{background:rgba(168,85,247,.1);border:1.5px solid rgba(168,85,247,.3);border-radius:12px;padding:12px 20px;text-align:center;font-size:clamp(13px,1.5vw,17px);color:#5b0fa8;font-weight:600;flex-shrink:0}
 
-/* ── QUIZ A ── */
-.quiza-slide{background:#f0fff4;flex-direction:column}
-.qa-box{background:#fff;border-radius:13px;padding:15px 20px;box-shadow:0 2px 8px rgba(0,0,0,.07)}
+/* ── QUIZ REVEAL ── */
+.q-reveal-btn{margin-top:6px;padding:6px 18px;background:#4a0080;color:#fff;border:none;border-radius:8px;font-size:clamp(11px,1.2vw,14px);font-weight:700;cursor:pointer;transition:background .15s}
+.q-reveal-btn:hover{background:#6a00b8}
+.q-ans-reveal{display:none;margin-top:8px}
+.q-ans-reveal.open{display:block}
 .qa-opt{border-radius:8px;padding:7px 16px;font-size:clamp(12px,1.5vw,16px);font-weight:700;border:2px solid #ddd;background:#f7f7f7;color:#999;cursor:default}
 .qa-opt.correct{background:#e8f5e9;border-color:#2e7d52;color:#1a5c35}
 .qa-opt.correct::after{content:' ✓';font-weight:900}
@@ -227,7 +229,7 @@ const PH = [
     name:'Diphthong — Goat Vowel',
     desc:'Start with neutral /ə/ (schwa — relaxed centre), then round and close the lips toward /ʊ/ — a gentle glide.',
     howto:['Begin with completely relaxed mouth — like the schwa /ə/','Jaw is barely open, lips neutral','Gently round your lips and pull them slightly forward as you glide','End with lips lightly rounded, like a small circle'],
-    tip:'British English "o" as in "go", "home", "no". Start relaxed, end rounded. American English says this differently — but in BrE it\'s always /əʊ/.',
+    tip:'Start completely relaxed (almost like a sigh), then gently round and close your lips. This is the "o" sound in "go", "home", "no" — start loose, end rounded.',
     approx:'Like Japanese "オウ" said quickly, starting very relaxed',
     context:'Common spellings: <b>o</b> (go, so, no), <b>oa</b> (coat, road), <b>ow</b> (know, show), <b>o_e</b> (home, bone)',
     glide:{from:'/ə/',to:'/ʊ/',note:'Neutral → Rounded — gentle lip movement'},
@@ -311,7 +313,7 @@ const QUIZ = [
     q:'Which word uses the /əʊ/ sound?',
     opts:['got','gut','go','get'],
     ans:2,
-    hint:'/əʊ/ — start relaxed (schwa), then round your lips. "go" = /ɡəʊ/. British English "o"!'
+    hint:'/əʊ/ — start completely relaxed, then gently round your lips. "go" = /ɡəʊ/. Start loose, end rounded!'
   },
   {
     q:'The word "noise" contains which diphthong?',
@@ -374,7 +376,7 @@ function titleHTML(){
   return `<div class="slide title-slide">
   <div style="max-width:800px;padding:18px">
     <div style="font-size:clamp(11px,1.3vw,14px);color:#ce93d8;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;margin-bottom:12px">English Pronunciation Lesson</div>
-    <h1><em>Diphthongs</em>（二重母音）</h1>
+    <h1><em>Diphthongs</em><span style="white-space:nowrap">（二重母音）</span></h1>
     <p class="title-sub">8 vowel sounds that GLIDE — your mouth moves as you speak!</p>
     <div class="goal-box">
       <p>🎯 <strong>Today's Goal:</strong> Produce all 8 diphthongs（二重母音）with a smooth, natural glide</p>
@@ -510,44 +512,43 @@ function stdDrillHTML(){
 
 function feedbackHTML(){
   return `<div class="slide fb-slide">
-  <div class="s-head" style="background:#2d0060">Feedback Guide — Common Student Errors <span class="badge" style="background:rgba(255,255,255,.14)">Teacher Reference</span></div>
-  <div class="s-body" style="flex-direction:column;gap:11px">
+  <div class="s-head" style="background:#2d0060">Watch Out! — Common Diphthong Mistakes <span class="badge" style="background:rgba(255,255,255,.14)">Common Mistakes</span></div>
+  <div class="s-body" style="flex-direction:column;gap:11px;overflow-y:auto">
     <div class="fb-grid">
       <div class="fb-card">
-        <h3 style="color:#C0392B">⚠️ /eɪ/ and /aɪ/ — Most common mistakes</h3>
+        <h3 style="color:#C0392B">⚠️ /eɪ/ and /aɪ/ — Two sounds instead of one</h3>
         <ul class="fb-list">
-          <li>Saying two separate sounds ("e-i") → remind: "Glide smoothly — one movement!"</li>
-          <li>/eɪ/: Starting too open → compare <span class="fb-pair">late /eɪ/</span> vs <span class="fb-pair">let /e/</span></li>
-          <li>/aɪ/: Not opening wide enough at the start → "Drop your jaw all the way first!"</li>
-          <li>Tip: Have students place a hand on their jaw — they should feel it move up</li>
+          <li>The most common mistake: saying "e-i" as two separate beats — it must be <strong>one smooth glide</strong></li>
+          <li>Place your hand on your jaw — you should feel it move <strong>up</strong> as you say it</li>
+          <li>/eɪ/: Confusing with /e/? → say <span class="fb-pair">late /eɪ/</span> vs <span class="fb-pair">let /e/</span> — /eɪ/ glides, /e/ stays still</li>
+          <li>/aɪ/: Drop your jaw <strong>all the way</strong> at the start — bigger than it feels natural</li>
         </ul>
       </div>
       <div class="fb-card">
-        <h3 style="color:#00838F">⚠️ /ɔɪ/ and /aʊ/ — Most common mistakes</h3>
+        <h3 style="color:#00838F">⚠️ /ɔɪ/ and /aʊ/ — Missing the lip change</h3>
         <ul class="fb-list">
-          <li>/ɔɪ/: Forgetting to round lips at the start → remind: "Oval lips first, then smile!"</li>
-          <li>/ɔɪ/: Compare <span class="fb-pair">boy /ɔɪ/</span> vs <span class="fb-pair">bore /ɔː/</span> — one glides, one doesn't</li>
-          <li>/aʊ/: Not rounding lips at the end → compare <span class="fb-pair">out /aʊ/</span> vs <span class="fb-pair">art /ɑː/</span></li>
-          <li>Both: Saying two separate sounds → "Glide! Don't stop in the middle."</li>
+          <li>/ɔɪ/: Start with <strong>oval (rounded) lips</strong>, then let them spread as you glide — oval → smile</li>
+          <li>/ɔɪ/: Confusing with /ɔː/? → say <span class="fb-pair">boy /ɔɪ/</span> vs <span class="fb-pair">bore /ɔː/</span> — /ɔɪ/ moves, /ɔː/ stays</li>
+          <li>/aʊ/: Start wide open, then <strong>round your lips</strong> at the end — don't forget the rounding!</li>
+          <li>For both: if it sounds like one flat vowel, you've stopped the glide too early</li>
         </ul>
       </div>
       <div class="fb-card">
-        <h3 style="color:#558B2F">⚠️ /əʊ/, /ɪə/, /eə/, /ʊə/ — Most common mistakes</h3>
+        <h3 style="color:#558B2F">⚠️ /əʊ/, /ɪə/, /eə/, /ʊə/ — Not relaxing at the end</h3>
         <ul class="fb-list">
-          <li>/əʊ/: Starting with too much mouth opening → "Start almost closed — very relaxed"</li>
-          <li>/ɪə/ /eə/ /ʊə/: Forgetting to relax toward schwa /ə/ at the end → "Let your mouth go loose at the finish!"</li>
-          <li>Compare <span class="fb-pair">hear /hɪə/</span> vs <span class="fb-pair">her /hɜː/</span> — one glides, one is steady</li>
-          <li>Note: "tour" and "sure" are often /ɔː/ in modern speech — both /ʊə/ and /ɔː/ are acceptable</li>
+          <li>/əʊ/: Start <strong>almost closed and relaxed</strong> — not with a wide open mouth</li>
+          <li>/ɪə/ /eə/ /ʊə/: Let your mouth <strong>relax and go loose</strong> as you finish — it fades toward /ə/</li>
+          <li>Confusing /ɪə/ with /ɜː/? → say <span class="fb-pair">hear /hɪə/</span> vs <span class="fb-pair">her /hɜː/</span> — /hɪə/ glides, /hɜː/ is steady</li>
+          <li>/ʊə/ note: "tour" and "sure" are also commonly said as /ɔː/ in modern English — both are fine</li>
         </ul>
       </div>
       <div class="fb-card">
-        <h3 style="color:#4a0080">✅ Positive feedback phrases</h3>
+        <h3 style="color:#4a0080">💡 Self-check tip for all 8 diphthongs</h3>
         <ul class="fb-list">
-          <li>"I can see your mouth moving — that's the glide!"</li>
-          <li>"Great — that was one smooth sound, not two!"</li>
-          <li>"Almost — try starting more open, then glide up."</li>
-          <li>"Perfect /ɔɪ/ — I could see your lips change shape!"</li>
-          <li>"That /aʊ/ had a great jaw drop at the start!"</li>
+          <li>The golden rule: <strong>your mouth MUST move</strong> — if it doesn't move, it's not a diphthong</li>
+          <li>Put your hand on your jaw — feel the movement every time</li>
+          <li>Record yourself and check: can you hear the glide from one sound to another?</li>
+          <li>Minimal pairs: <span class="fb-pair">late/let</span>, <span class="fb-pair">boy/bore</span>, <span class="fb-pair">hear/her</span>, <span class="fb-pair">coat/cot</span></li>
         </ul>
       </div>
     </div>
@@ -555,31 +556,23 @@ function feedbackHTML(){
 }
 
 function quizQHTML(){
-  const qs=QUIZ.map((q,i)=>`
-    <div class="q-box">
+  const qs=QUIZ.map((q,i)=>{
+    const id=`qrev-${i}`;
+    const opts=q.opts.map((o,ci)=>`<div class="q-opt${ci===q.ans?' correct':''}">${o}</div>`).join('');
+    return `<div class="q-box">
       <div class="q-num">Question ${i+1} of ${QUIZ.length}</div>
       <div class="q-text">${q.q}</div>
-      <div class="q-opts">${q.opts.map(o=>`<div class="q-opt">${o}</div>`).join('')}</div>
-    </div>`).join('');
+      <div class="q-opts" style="margin-bottom:7px">${q.opts.map(o=>`<div class="q-opt">${o}</div>`).join('')}</div>
+      <button class="q-reveal-btn" onclick="toggleAns(this,'${id}')">Show Answer</button>
+      <div class="q-ans-reveal" id="${id}">
+        <div class="q-opts" style="margin-bottom:6px">${opts}</div>
+        <div class="qa-hint">💡 ${q.hint}</div>
+      </div>
+    </div>`;
+  }).join('');
   return `<div class="slide quizq-slide">
-  <div class="s-head" style="background:#4a0080">Mini Quiz — Questions <span class="badge" style="background:rgba(255,255,255,.14)">Think first!</span></div>
-  <div class="s-body" style="flex-direction:column;justify-content:space-evenly;gap:10px">
-    <div class="think-banner">🤔 Read each question — think about your answer before the next slide!</div>
-    <div class="q-grid">${qs}</div>
-  </div></div>`;
-}
-
-function quizAHTML(){
-  const qs=QUIZ.map((q,i)=>`
-    <div class="qa-box">
-      <div class="q-num">Question ${i+1} — Answer</div>
-      <div class="q-text" style="margin-bottom:8px">${q.q}</div>
-      <div class="q-opts" style="margin-bottom:7px">${q.opts.map((o,ci)=>`<div class="qa-opt${ci===q.ans?' correct':''}">${o}</div>`).join('')}</div>
-      <div class="qa-hint">💡 ${q.hint}</div>
-    </div>`).join('');
-  return `<div class="slide quiza-slide">
-  <div class="s-head" style="background:#1e5f3a">Mini Quiz — Answers <span class="badge" style="background:rgba(255,255,255,.14)">How did you do?</span></div>
-  <div class="s-body" style="flex-direction:column;justify-content:space-evenly;gap:10px">
+  <div class="s-head" style="background:#4a0080">Mini Quiz <span class="badge" style="background:rgba(255,255,255,.14)">Check Your Answers</span></div>
+  <div class="s-body" style="flex-direction:column;gap:10px;overflow-y:auto;justify-content:flex-start">
     <div class="q-grid">${qs}</div>
   </div></div>`;
 }
@@ -639,8 +632,14 @@ function build(){
   const c=document.getElementById('slides');
   let h=titleHTML()+overviewHTML();
   PH.forEach((p,i)=>{h+=explainHTML(p,i+1);h+=drillHTML(p,i+1);});
-  h+=stdDrillHTML()+feedbackHTML()+quizQHTML()+quizAHTML()+summaryHTML()+freeConvHTML();
+  h+=stdDrillHTML()+feedbackHTML()+quizQHTML()+summaryHTML()+freeConvHTML();
   c.innerHTML=h;
+}
+
+function toggleAns(btn,id){
+  const el=document.getElementById(id);
+  const open=el.classList.toggle('open');
+  btn.textContent=open?'Hide':'Show Answer';
 }
 
 let cur=0,SL=[];
